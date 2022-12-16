@@ -1,0 +1,26 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3.2.0
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3.0.0
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Install dotnet releaser
+      run: dotnet tool install --global dotnet-releaser
+
+    - name: Generate release
+      env:
+        API_KEY: ${{ secrets.ApiKey }}
+      run: dotnet-releaser run --nuget-token "${{secrets.NUGET_TOKEN}}" --github-token "${{secrets.GITHUB_TOKEN}}" dotnet-releaser.toml

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackAsTool>true</PackAsTool>
+    <PackageTags>eventhub;tool</PackageTags>
+    <ToolCommandName>schemacreation</ToolCommandName>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <Authors>drdonoso</Authors>
+    <Description>A command line event hub schema registry</Description>
+    <PackageProjectUrl>https://github.com/drdonoso/schemacreation</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/drdonoso/schemacreation</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/drdonoso/$(AssemblyName)/blob/main/changelog.md</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Employee.avro" />
+    <None Remove="secrets-dev.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Employee.avro">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="azure.data.schemaregistry" Version="1.3.0" />
+    <PackageReference Include="Azure.Identity" Version="1.8.0" />
+    <PackageReference Include="Microsoft.Azure.Data.SchemaRegistry.ApacheAvro" Version="1.0.0" />
+    <PackageReference Include="CommandDotNet" Version="7.0.1" />
+    <PackageReference Include="CommandDotNet.Spectre" Version="3.0.1" />
+  </ItemGroup>
+
+</Project>
